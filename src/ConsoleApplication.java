@@ -3,7 +3,6 @@ import java.util.Scanner;
 public class ConsoleApplication {
 
     private  Scanner scanner;
-    private Polinom polinom;
     private CustomType polinomType;
     private boolean exit = false;
 
@@ -12,16 +11,20 @@ public class ConsoleApplication {
     }
 
     public void exec() {
-        chooseType();
-        switch (polinomType) {
-            case CUSTOM_INT -> {
-                System.out.println("Полином по умолчанию:");
-                polinom = new Polinom(new CustomInteger(1), new CustomInteger(0), new CustomInteger(0));
-                polinom.printEquation();
+
+        Polinom polinom = null;
+        while (polinom == null) {
+            chooseType();
+            switch (polinomType) {
+                case CUSTOM_INT -> {
+                    System.out.println("Полином по умолчанию:");
+                    polinom = new Polinom(new CustomInteger(1), new CustomInteger(0), new CustomInteger(0));
+                    polinom.printEquation();
+                }
             }
         }
         while (!exit) {
-            menu();
+            menu(polinom);
         }
     }
 
@@ -44,7 +47,7 @@ public class ConsoleApplication {
         return scanner.nextInt();
     }
 
-    private void menu() {
+    private void menu(Polinom polinom) {
         printOptionsMenu();
         int numOfInstruction = 0;
 
@@ -84,14 +87,15 @@ public class ConsoleApplication {
         }
     }
 
-    private void createPolinom() {
+    private Polinom createPolinom() {
         System.out.print("a = ");
         int a = getNumber();
         System.out.print("b = ");
         int b = getNumber();
         System.out.print("c = ");
         int c = getNumber();
-        polinom = new Polinom(new CustomInteger(a), new CustomInteger(b), new CustomInteger(c));
+        Polinom polinom = new Polinom(new CustomInteger(a), new CustomInteger(b), new CustomInteger(c));
+        return polinom;
     }
 
     private void printOptionsMenu() {
