@@ -1,3 +1,5 @@
+package oop.leti;
+
 public abstract class CustomNumber {
 
     public abstract CustomNumber plus(CustomNumber a);
@@ -7,4 +9,5 @@ public abstract class CustomNumber {
     public abstract boolean biggerZero();
     public abstract boolean isZero();
     public abstract CustomNumber sqrt();
+    public abstract Number getValue();
 }

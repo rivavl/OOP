@@ -1,3 +1,5 @@
+package oop.leti;
+
 public class CustomInteger extends CustomNumber{
 
     private int value;
@@ -50,6 +52,11 @@ public class CustomInteger extends CustomNumber{
     @Override
     public CustomNumber sqrt() {
         return new CustomInteger((int) Math.sqrt(this.value));
+    }
+
+    @Override
+    public Integer getValue() {
+        return value;
     }
 
     @Override

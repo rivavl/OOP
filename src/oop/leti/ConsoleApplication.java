@@ -1,8 +1,10 @@
+package oop.leti;
+
 import java.util.Scanner;
 
 public class ConsoleApplication {
 
-    private  Scanner scanner;
+    private Scanner scanner;
     private CustomType polinomType;
     private boolean exit = false;
 
@@ -24,7 +26,7 @@ public class ConsoleApplication {
             }
         }
         while (!exit) {
-            menu(polinom);
+            polinom = menu(polinom);
         }
     }
 
@@ -47,7 +49,7 @@ public class ConsoleApplication {
         return scanner.nextInt();
     }
 
-    private void menu(Polinom polinom) {
+    private Polinom menu(Polinom polinom) {
         printOptionsMenu();
         int numOfInstruction = 0;
 
@@ -55,11 +57,16 @@ public class ConsoleApplication {
 
         switch (numOfInstruction) {
             case 1:
-                createPolinom();
+                polinom = createPolinom();
                 break;
             case 2:
-                if (polinom.getRoots()) {
-                    polinom.printRoots();
+                Polinom.Roots roots;
+                try {
+                    roots = polinom.getRoots();
+                    System.out.println("x1 = " + roots.getX1());
+                    System.out.println("x2 = " + roots.getX2());
+                } catch (NoRootsException e) {
+                    System.out.println(e.getMessage());
                 }
                 break;
             case 3:
@@ -80,11 +87,13 @@ public class ConsoleApplication {
                 break;
             case 6:
                 exit = true;
+                scanner.close();
                 break;
             default:
                 System.out.println("\nНедопустимый номер инструкции\n".toUpperCase());
                 break;
         }
+        return polinom;
     }
 
     private Polinom createPolinom() {
@@ -94,8 +103,7 @@ public class ConsoleApplication {
         int b = getNumber();
         System.out.print("c = ");
         int c = getNumber();
-        Polinom polinom = new Polinom(new CustomInteger(a), new CustomInteger(b), new CustomInteger(c));
-        return polinom;
+        return new Polinom(new CustomInteger(a), new CustomInteger(b), new CustomInteger(c));
     }
 
     private void printOptionsMenu() {
