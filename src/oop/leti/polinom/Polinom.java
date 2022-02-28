@@ -1,4 +1,7 @@
-package oop.leti;
+package oop.leti.polinom;
+
+import oop.leti.numbers.CustomInteger;
+import oop.leti.numbers.CustomNumber;
 
 public class Polinom<T extends CustomNumber> {
     private T a;
@@ -99,7 +102,7 @@ public class Polinom<T extends CustomNumber> {
         return result;
     }
 
-    class Roots<T extends CustomNumber> {
+    public class Roots<T extends CustomNumber> {
         private T x1;
         private T x2;
 

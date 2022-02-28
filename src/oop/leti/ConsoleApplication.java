@@ -1,5 +1,10 @@
 package oop.leti;
 
+import oop.leti.numbers.CustomInteger;
+import oop.leti.numbers.CustomType;
+import oop.leti.polinom.NoRootsException;
+import oop.leti.polinom.Polinom;
+
 import java.util.Scanner;
 
 public class ConsoleApplication {

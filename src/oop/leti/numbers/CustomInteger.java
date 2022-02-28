@@ -1,6 +1,6 @@
-package oop.leti;
+package oop.leti.numbers;
 
-public class CustomInteger extends CustomNumber{
+public class CustomInteger extends CustomNumber {
 
     private int value;
 
