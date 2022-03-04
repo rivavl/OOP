@@ -18,7 +18,6 @@ public class CustomInteger extends CustomNumber {
 
     @Override
     public CustomInteger plus(CustomNumber a) {
-
         return new CustomInteger(this.value + convertToCustomInteger(a).value);
     }
 
@@ -31,6 +30,11 @@ public class CustomInteger extends CustomNumber {
     @Override
     public CustomInteger mult(CustomNumber a) {
         return new CustomInteger(this.value * convertToCustomInteger(a).value);
+    }
+
+    @Override
+    public CustomNumber mult(int a) {
+        return new CustomInteger(this.value * a);
     }
 
     @Override
@@ -55,8 +59,13 @@ public class CustomInteger extends CustomNumber {
     }
 
     @Override
-    public Integer getValue() {
-        return value;
+    public Double getValue() {
+        return (double) value;
+    }
+
+    @Override
+    public boolean isTheSame(double exactX) {
+        return (double) this.value == exactX;
     }
 
     @Override

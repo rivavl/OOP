@@ -1,6 +1,5 @@
 package oop.leti.polinom;
 
-import oop.leti.numbers.CustomInteger;
 import oop.leti.numbers.CustomNumber;
 
 public class Polinom<T extends CustomNumber> {
@@ -11,8 +10,6 @@ public class Polinom<T extends CustomNumber> {
     private T x1;
     private T x2;
 
-    private T result;
-
     public Polinom(T a, T b, T c) {
         this.a = a;
         this.b = b;
@@ -21,36 +18,45 @@ public class Polinom<T extends CustomNumber> {
 
     public Roots<T> getRoots() throws NoRootsException {
         if (x1 == null || x2 == null) {
-            double D = 0;
+            double exactD = 0;
             double exactX1 = 0;
             double exactX2 = 0;
 
-            T discr = (T) b.mult(b).minus(a.mult(c).mult(new CustomInteger(4)));
+            T b2 = (T) b.mult(b);
+            T ac4 = (T) a.mult(c).mult(4);
+
+            T D = (T) b2.minus(ac4);
 
 
-            if (discr.biggerZero() || discr.isZero()) {
-                x1 = (T) this.b.mult(new CustomInteger(-1)).plus(discr.sqrt()).div(this.a.mult(new CustomInteger(2)));
-                x2 = (T) this.b.mult(new CustomInteger(-1)).minus(discr.sqrt()).div(this.a.mult(new CustomInteger(2)));
+            if (D.biggerZero() || D.isZero()) {
+                CustomNumber num = b.mult(-1).plus(D.sqrt());
+                CustomNumber denom = a.mult(2);
+                x1 = (T) num.div(denom);
+                num = b.mult(-1).minus(D.sqrt());
+                x2 = (T) num.div(denom);
             }
 
             if (x1 == null || x2 == null) {
-                System.out.println("\nУравнение не имеет вещественных корней\n".toUpperCase());
                 throw new NoRootsException();
             }
 
-            if (a instanceof CustomInteger) {
-                D = (int) b.getValue() * (int) b.getValue() - 4 * (int) a.getValue() * (int) c.getValue();
-                exactX1 = ((-1) * (int) b.getValue() + Math.sqrt(D)) / (2 * (int) a.getValue());
-                exactX2 = ((-1) * (int) b.getValue() - Math.sqrt(D)) / (2 * (int) a.getValue());
-                System.out.println("(exact x1 = " + exactX1 + ")");
-                System.out.println("(exact x2 = " + exactX2 + ")");
+            exactD = (double) b.getValue() * (double) b.getValue() - 4 * (double) a.getValue() * (double) c.getValue();
+            exactX1 = ((-1) * (double) b.getValue() + Math.sqrt(exactD)) / (2 * (double) a.getValue());
+            exactX2 = ((-1) * (double) b.getValue() - Math.sqrt(exactD)) / (2 * (double) a.getValue());
+            System.out.println("(exact x1 = " + exactX1 + ")");
+            System.out.println("(exact x2 = " + exactX2 + ")");
 
-                if ((double) (int) x1.getValue() != exactX1
-                        || (double) (int) x2.getValue() != exactX2) {
-                    System.out.println("Значения корней округлены до целых чисел, т.к. выбран целочисленный тип");
-                }
+            if (!x1.isTheSame(exactX1)) {
+                System.out.println("x1 округлен, т.к. не принадлежат заданному множеству");
+            } else {
+                System.out.println("х1 принадлежит заданному множеству");
             }
 
+            if (!x2.isTheSame(exactX2)) {
+                System.out.println("x2 округлен, т.к. не принадлежит заданному множеству");
+            } else {
+                System.out.println("х2 принадлежит заданному множеству");
+            }
         }
 
         return new Roots<T>(x1, x2);
@@ -75,31 +81,32 @@ public class Polinom<T extends CustomNumber> {
     }
 
     public void printCanonical() {
-        if (this.x1 == null || this.x2 == null) {
+        if (x1 == null || x2 == null) {
             System.out.println("\nКорни еще не вычислены\n".toUpperCase());
         } else {
-            String res = "" + this.a + "(x";
-            if (this.x1.biggerZero()) {
-                res = res + "-" + this.x1;
+            StringBuilder res = new StringBuilder();
+            res.append(a).append("(x");
+            if (x1.biggerZero()) {
+                res.append("-").append(x1);
             } else {
-                res = res + "+" + this.x1.mult(new CustomInteger(-1));
+                res.append("+");
+                res.append(x1.mult(-1));
             }
 
-            res = res + ")(x";
+            res.append(")(x");
 
-            if (this.x2.biggerZero()) {
-                res = res + "-" + this.x2;
+            if (x2.biggerZero()) {
+                res.append("-").append(x2);
             } else {
-                res = res + "+" + this.x2.mult(new CustomInteger(-1));
+                res.append("+").append(x2.mult(-1));
             }
-            res = res + ")";
+            res.append(")");
             System.out.println(res);
         }
     }
 
     public T solveWithX(CustomNumber x) {
-        result = (T) this.a.mult(x).mult(x).plus(this.b.mult(x)).plus(this.c);
-        return result;
+        return (T) this.a.mult(x).mult(x).plus(this.b.mult(x)).plus(this.c);
     }
 
     public class Roots<T extends CustomNumber> {

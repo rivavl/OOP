@@ -8,6 +8,8 @@ public abstract class CustomNumber {
 
     public abstract CustomNumber mult(CustomNumber a);
 
+    public abstract CustomNumber mult(int a);
+
     public abstract CustomNumber div(CustomNumber a);
 
     public abstract boolean biggerZero();
@@ -17,4 +19,6 @@ public abstract class CustomNumber {
     public abstract CustomNumber sqrt();
 
     public abstract Number getValue();
+
+    public abstract boolean isTheSame(double exactX);
 }
