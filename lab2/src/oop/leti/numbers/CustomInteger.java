@@ -1,7 +1,5 @@
 package oop.leti.numbers;
 
-import java.math.BigDecimal;
-
 public class CustomInteger extends CustomNumber {
 
     private int value;
