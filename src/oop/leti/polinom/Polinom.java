@@ -43,8 +43,8 @@ public class Polinom<T extends CustomNumber> {
             exactD = (double) b.getValue() * (double) b.getValue() - 4 * (double) a.getValue() * (double) c.getValue();
             exactX1 = ((-1) * (double) b.getValue() + Math.sqrt(exactD)) / (2 * (double) a.getValue());
             exactX2 = ((-1) * (double) b.getValue() - Math.sqrt(exactD)) / (2 * (double) a.getValue());
-            System.out.println("(exact x1 = " + exactX1 + ")");
-            System.out.println("(exact x2 = " + exactX2 + ")");
+            System.out.println("(exact x1 = " + String.format("%.5g", exactX1) + ")");
+            System.out.println("(exact x2 = " + String.format("%.5g", exactX2) + ")");
 
             if (!x1.isTheSame(exactX1)) {
                 System.out.println("x1 округлен, т.к. не принадлежат заданному множеству");

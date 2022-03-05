@@ -56,7 +56,7 @@ public class CustomRational extends CustomNumber {
     }
 
     @Override
-    public CustomNumber mult(int a) {
+    public CustomRational mult(int a) {
         int num = numerator * a;
         return createAndReturnCustomRational(num, denominator);
     }
@@ -66,7 +66,7 @@ public class CustomRational extends CustomNumber {
         CustomRational val = convertToCustomRational(a);
         int num = numerator * val.denominator;
         int denom = denominator * val.numerator;
-        if (denom == 0) {
+        if (denom == 0 || num == 0) {
             denom = 1;
         }
         return createAndReturnCustomRational(num, denom);
@@ -97,7 +97,7 @@ public class CustomRational extends CustomNumber {
     @Override
     public boolean isTheSame(double exactX) {
         double currentX = (double) this.numerator / this.denominator;
-        return exactX == currentX;
+        return (int) exactX * 10000 == (int) currentX * 10000;
     }
 
     private List<Integer> reduceFraction(int num, int denom) {

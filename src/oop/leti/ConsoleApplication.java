@@ -53,7 +53,7 @@ public class ConsoleApplication {
     private void chooseType() {
         System.out.println("Выберите тип полинома");
         System.out.println("1.Целочисленный");
-        System.out.println("2.Вещественный");
+        System.out.println("2.Рациональный");
         int input = -1;
         while (input <= 0 || input > CustomType.values().length) {
             System.out.println("Введите номер от " + 1 + " до " + CustomType.values().length);
@@ -136,8 +136,9 @@ public class ConsoleApplication {
                         case CUSTOM_RATIONAL -> {
                             System.out.println("При х = 0: " + polinom.solveWithX(new CustomRational(0, 1)));
                             System.out.print("x = ");
-                            int n = getCoefficient().get(0);
-                            int d = getCoefficient().get(1);
+                            List<Integer> list = getCoefficient();
+                            int n = list.get(0);
+                            int d = list.get(1);
                             System.out.println("При х = " + n + "/" + d + ": " + polinom.solveWithX(new CustomRational(n, d)));
 
                         }

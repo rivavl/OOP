@@ -1,5 +1,7 @@
 package oop.leti.numbers;
 
+import java.math.BigDecimal;
+
 public class CustomInteger extends CustomNumber {
 
     private int value;
@@ -54,7 +56,7 @@ public class CustomInteger extends CustomNumber {
     }
 
     @Override
-    public CustomNumber sqrt() {
+    public CustomInteger sqrt() {
         return new CustomInteger((int) Math.sqrt(this.value));
     }
 
